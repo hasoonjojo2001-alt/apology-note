@@ -41,7 +41,7 @@ position:relative;
 
 @keyframes heartbeat {
 0%,100% { transform: scale(1); }
-50% { transform: scale(1.025); }
+50% { transform: scale(1.02); }
 }
 
 .heartbeat{
@@ -49,7 +49,7 @@ animation: heartbeat 4s infinite;
 }
 
 button{
-margin-top:20px;
+margin-top:25px;
 padding:10px 25px;
 border:1px solid #ff2e2e;
 background:none;
@@ -64,12 +64,6 @@ background:#ff2e2e;
 color:#111;
 }
 
-.reasons p{
-opacity:0;
-transition:1.5s;
-margin:8px 0;
-}
-
 .countdown{
 margin-top:20px;
 font-size:14px;
@@ -82,17 +76,8 @@ top:20px;
 right:25px;
 color:#ff2e2e;
 font-weight:bold;
-letter-spacing:1px;
 }
 
-.loveLine{
-margin-top:25px;
-font-style:italic;
-opacity:0;
-transition:2s;
-}
-
-/* Floating Hearts */
 .heart{
 position:fixed;
 color:#ff2e2e;
@@ -118,62 +103,52 @@ to{opacity:1; transform:translateY(0);}
 
 <div class="timeFixed">4:00 PM</div>
 
-<div id="app">
-<button onclick="openLetter()">Open</button>
+<div class="container heartbeat" id="box">
+
+<h2>My beautiful love ❤️</h2>
+
+<p>
+I love you more than anything in this world.
+You are always the right person in every moment and every situation,
+and I’m truly lucky to have you in my life.
+</p>
+
+<p>
+I love spoiling you, caring about your feelings,
+and being your support at all times — in your happiness, your sweet moods, and every little detail about you.
+</p>
+
+<p>
+If I ever caused you a bad moment or made you upset,
+today I want to apologize for everything.
+Because your beautiful face was never meant for sadness,
+and you are the most precious thing in my life.
+</p>
+
+<p>
+I promise to always be the one who makes you smile,
+the one who gives you excitement for life and happiness for the future.
+</p>
+
+<p>
+I’m Hassan…
+your man who will always stay the same —
+loving you, caring for you, missing you… more and more ❤️
+</p>
+
+<div class="countdown" id="timeCounter"></div>
+
+<div id="madSection">
+<button onclick="showChoices()">Are you still mad at me?</button>
+</div>
+
 </div>
 
 <script>
 
 const loveDate = new Date("2016-01-01T00:00:00"); // غير التاريخ
 
-function openLetter(){
-
-document.getElementById("app").innerHTML = `
-<div class="container heartbeat" id="box">
-
-<h2>My beautiful love,</h2>
-
-<p>
-If I ever caused you a bad moment or made you upset,
-today I simply want to say I’m sorry.
-</p>
-
-<p>
-You are the most precious thing in my life.
-And I don’t take you for granted.
-</p>
-
-<div class="countdown" id="timeCounter"></div>
-
-<div class="reasons">
-<h3>Reasons I’m Lucky</h3>
-<p id="r1">1. You make me happy — always.</p>
-<p id="r2">2. You support me, even when I don’t say I need it.</p>
-<p id="r3">3. And a thousand other things I could never fully count.</p>
-</div>
-
-<div id="madSection">
-<button onclick="showChoices()">Are you still mad at me?</button>
-</div>
-
-<div class="loveLine" id="loveLine">
-My love for you grows stronger every single moment.
-</div>
-
-</div>
-`;
-
-startCounter();
-animateReasons();
-createHearts();
-
-setTimeout(()=>{
-document.getElementById("loveLine").style.opacity="1";
-},6000);
-}
-
 /* Countdown */
-function startCounter(){
 setInterval(()=>{
 const now = new Date();
 const diff = now - loveDate;
@@ -184,14 +159,6 @@ const hours = Math.floor(diff/(1000*60*60)) % 24;
 document.getElementById("timeCounter").innerHTML =
 "Time since I realized I love you: " + days + " days & " + hours + " hours.";
 },1000);
-}
-
-/* Animate reasons */
-function animateReasons(){
-setTimeout(()=>{document.getElementById("r1").style.opacity="1";},2000);
-setTimeout(()=>{document.getElementById("r2").style.opacity="1";},3200);
-setTimeout(()=>{document.getElementById("r3").style.opacity="1";},4500);
-}
 
 /* Mad test */
 function showChoices(){
@@ -203,7 +170,6 @@ document.getElementById("madSection").innerHTML = `
 
 function finalAnswer(){
 document.getElementById("box").style.animation="heartbeat 0.8s 4";
-
 typeWriter("I knew it. My baby loves me — she could never stay mad at me.", "madSection", 35);
 }
 
@@ -222,7 +188,6 @@ typing();
 }
 
 /* Floating hearts */
-function createHearts(){
 setInterval(()=>{
 const heart=document.createElement("div");
 heart.classList.add("heart");
@@ -231,8 +196,7 @@ heart.style.left=Math.random()*100+"vw";
 heart.style.fontSize=(15+Math.random()*20)+"px";
 document.body.appendChild(heart);
 setTimeout(()=>{heart.remove();},6000);
-},700);
-}
+},800);
 
 </script>
 
