@@ -16,7 +16,6 @@ font-family:'Georgia', serif;
 color:#f2f2f2;
 text-align:center;
 overflow:hidden;
-transition:1.5s;
 position:relative;
 }
 
@@ -26,9 +25,8 @@ background:url('photo.jpg') center/cover no-repeat;
 position:absolute;
 width:100%;
 height:100%;
-filter:blur(10px) brightness(0.25);
+filter:blur(10px) brightness(0.3);
 z-index:-1;
-transition:1.5s;
 }
 
 .container{
@@ -39,7 +37,6 @@ border-radius:25px;
 line-height:1.9;
 animation:fadeIn 2s ease forwards;
 position:relative;
-transition:0.6s;
 }
 
 @keyframes heartbeat {
@@ -54,17 +51,16 @@ animation: heartbeat 4s infinite;
 button{
 margin-top:20px;
 padding:10px 25px;
-border:1px solid #d4af37;
+border:1px solid #ff2e2e;
 background:none;
-color:#d4af37;
+color:#ff2e2e;
 font-size:14px;
-letter-spacing:1px;
 cursor:pointer;
 transition:0.4s;
 }
 
 button:hover{
-background:#d4af37;
+background:#ff2e2e;
 color:#111;
 }
 
@@ -74,26 +70,41 @@ transition:1.5s;
 margin:8px 0;
 }
 
-.future{
-margin-top:30px;
-opacity:0;
-transition:2s;
-font-style:italic;
-}
-
-.hiddenTime{
-position:fixed;
-bottom:20px;
-right:20px;
-opacity:0.5;
-cursor:pointer;
-font-size:14px;
-}
-
 .countdown{
 margin-top:20px;
 font-size:14px;
 opacity:0.85;
+}
+
+.timeFixed{
+position:fixed;
+top:20px;
+right:25px;
+color:#ff2e2e;
+font-weight:bold;
+letter-spacing:1px;
+}
+
+.loveLine{
+margin-top:25px;
+font-style:italic;
+opacity:0;
+transition:2s;
+}
+
+/* Floating Hearts */
+.heart{
+position:fixed;
+color:#ff2e2e;
+font-size:18px;
+animation:floatUp 6s linear infinite;
+opacity:0;
+}
+
+@keyframes floatUp{
+0%{transform:translateY(100vh); opacity:0;}
+30%{opacity:0.8;}
+100%{transform:translateY(-10vh); opacity:0;}
 }
 
 @keyframes fadeIn{
@@ -105,19 +116,17 @@ to{opacity:1; transform:translateY(0);}
 
 <body>
 
+<div class="timeFixed">4:00 PM</div>
+
 <div id="app">
 <button onclick="openLetter()">Open</button>
 </div>
 
-<div class="hiddenTime" onclick="secretTime()">4:00 PM</div>
-
 <script>
 
-const loveDate = new Date("2019-04-08T00:00:00"); // غير التاريخ هنا
+const loveDate = new Date("2016-01-01T00:00:00"); // غير التاريخ
 
 function openLetter(){
-
-document.body.style.background="#151515";
 
 document.getElementById("app").innerHTML = `
 <div class="container heartbeat" id="box">
@@ -147,9 +156,8 @@ And I don’t take you for granted.
 <button onclick="showChoices()">Are you still mad at me?</button>
 </div>
 
-<div class="future" id="futureLine">
-And one day… this won’t just be an apology.<br>
-It’ll be a memory we laugh about.
+<div class="loveLine" id="loveLine">
+My love for you grows stronger every single moment.
 </div>
 
 </div>
@@ -157,10 +165,11 @@ It’ll be a memory we laugh about.
 
 startCounter();
 animateReasons();
+createHearts();
 
 setTimeout(()=>{
-document.getElementById("futureLine").style.opacity="1";
-},6500);
+document.getElementById("loveLine").style.opacity="1";
+},6000);
 }
 
 /* Countdown */
@@ -177,13 +186,11 @@ document.getElementById("timeCounter").innerHTML =
 },1000);
 }
 
-/* Animate reasons one by one */
+/* Animate reasons */
 function animateReasons(){
 setTimeout(()=>{document.getElementById("r1").style.opacity="1";},2000);
 setTimeout(()=>{document.getElementById("r2").style.opacity="1";},3200);
-setTimeout(()=>{
-document.getElementById("r3").style.opacity="1";
-},4500);
+setTimeout(()=>{document.getElementById("r3").style.opacity="1";},4500);
 }
 
 /* Mad test */
@@ -195,10 +202,9 @@ document.getElementById("madSection").innerHTML = `
 }
 
 function finalAnswer(){
-const box = document.getElementById("box");
-box.style.animation="heartbeat 0.8s 4";
+document.getElementById("box").style.animation="heartbeat 0.8s 4";
 
-typeWriter("Good. Because I wasn’t going anywhere.", "madSection", 35);
+typeWriter("I knew it. My baby loves me — she could never stay mad at me.", "madSection", 35);
 }
 
 /* Typewriter */
@@ -215,9 +221,17 @@ setTimeout(typing,speed);
 typing();
 }
 
-/* Hidden 4PM */
-function secretTime(){
-alert("Don’t be late. I’m serious.");
+/* Floating hearts */
+function createHearts(){
+setInterval(()=>{
+const heart=document.createElement("div");
+heart.classList.add("heart");
+heart.innerHTML="❤";
+heart.style.left=Math.random()*100+"vw";
+heart.style.fontSize=(15+Math.random()*20)+"px";
+document.body.appendChild(heart);
+setTimeout(()=>{heart.remove();},6000);
+},700);
 }
 
 </script>
